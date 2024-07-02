@@ -1,4 +1,4 @@
-import supabase from "./supabase";
+import supabase, { supabaseUrl } from "./supabase";
 
 export async function getUrls(user_id) {
   const { data, error } = await supabase
@@ -30,6 +30,8 @@ export async function createUrl({title, longUrl, customUrl, user_id }, qrCode) {
 
     if(storageError) throw new Error(storageError.message); 
 
+    const qr = `${supabaseUrl}/storage/v1/object/public/qrs/${fileName}`;
+
     const { data, error } = await supabase.from("urls")
     .insert([{
         title,
@@ -44,4 +46,5 @@ export async function createUrl({title, longUrl, customUrl, user_id }, qrCode) {
 
     if (error) throw new Error("Error creating Short URL");
 
+    return data;
 }
