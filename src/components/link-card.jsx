@@ -57,7 +57,7 @@ const LinkCard = ({ url, fetchUrls }) => {
         <Button
           variant="ghost"
           onClick={() =>
-            navigator.clipboard.writeText(`https://url-shortener-92tl.onrender.com//${url?.short_url}`)
+            navigator.clipboard.writeText(`https://url-shortener-92tl.onrender.com/${url?.short_url}`)
           }
         >
           <Copy />
