@@ -13,6 +13,7 @@ import { getClicksForUrl } from "@/db/apiClicks";
 import { deleteUrl, getUrl } from "@/db/apiUrls";
 import useFetch from "@/hooks/use-fetch";
 import { Copy, Download, LinkIcon, Trash } from "lucide-react";
+import moment from "moment";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { BarLoader, BeatLoader } from "react-spinners";
@@ -36,7 +37,7 @@ const Link = () => {
   const { id } = useParams();
   const { user } = UrlState();
   const navigate = useNavigate();
-
+  
   const {
     loading,
     data: url,
@@ -66,6 +67,7 @@ const Link = () => {
     link = url?.custom_url ? url?.custom_url : url.short_url;
   }
 
+  const date = new Date(url?.created_at);
   return (
     <>
       {(loading || loadingStats) && (
@@ -92,7 +94,7 @@ const Link = () => {
             {url?.original_url}
           </a>
           <span className="flex items-end font-extralight text-sm">
-            {new Date(url?.created_at).toLocaleString()}
+            {moment(date).format("Do MMMM YYYY, h:mm a")}
           </span>
           <div className="flex gap-2">
             <Button

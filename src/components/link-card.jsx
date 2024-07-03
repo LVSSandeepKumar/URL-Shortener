@@ -4,6 +4,7 @@ import { Copy, Download, Trash } from "lucide-react";
 import { deleteUrl } from "@/db/apiUrls";
 import useFetch from "@/hooks/use-fetch";
 import { BeatLoader } from "react-spinners";
+import moment from "moment";
 
 const LinkCard = ({ url, fetchUrls }) => {
 
@@ -22,7 +23,9 @@ const LinkCard = ({ url, fetchUrls }) => {
         document.body.removeChild(anchor);
     }
 
-    const {loading : loadingDelete, error, fn : fnDelete} = useFetch(deleteUrl, url?.id)
+    const {loading : loadingDelete, error, fn : fnDelete} = useFetch(deleteUrl, url?.id);
+
+    const date = new Date(url?.created_at);
 
   return (
     <div className="flex flex-col md:flex-row gap-5 border p-4 bg-gray-900 rounded-lg">
@@ -42,7 +45,7 @@ const LinkCard = ({ url, fetchUrls }) => {
             {url?.original_url}
         </span>
         <span className="flex items-end font-extralight text-sm flex-1">
-            {new Date(url?.created_at).toLocaleString()}
+            {moment(date).format("Do MMMM YYYY, h:mm a")}
         </span>
       </Link>
 
