@@ -56,30 +56,19 @@ export async function getLongUrl(id) {
   .or(`short_url.eq.${id},custom_url.eq.${id}`)
   .single();
 
-  if (error) throw new Error("Unable to delete URLs");
+  if (error) throw new Error("Unable to load Long URl");
 
   return data;
 }
 
-const parser = new UAParser();
+export async function getUrl({id, user_id}) {
+  const { data, error } = await supabase.from("urls")
+    .select("*")
+    .eq("id", id)
+    .eq("user_id", user_id)
+    .single();
 
-export const storeClicks = async ({id, originalUrl}) => {
-  try {
-    const res = parser.getResult();
-    const device = res.type || "desktop";
+  if (error) throw new Error("Unable to fetch link");
 
-    const response = await fetch("https://ipapi.co/json");
-    const {city, country_name : country } = await response.json();
-
-    await supabase.from("clicks").insert({
-      url_id : id,
-      city : city,
-      country : country,
-      device : device
-    });
-
-    window.location.href = originalUrl;
-  } catch (error) {
-    console.error("Error recording click:", error);
-  }
+  return data;
 }
