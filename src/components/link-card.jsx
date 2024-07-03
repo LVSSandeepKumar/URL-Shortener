@@ -7,25 +7,28 @@ import { BeatLoader } from "react-spinners";
 import moment from "moment";
 
 const LinkCard = ({ url, fetchUrls }) => {
+  const downloadImage = () => {
+    const imageUrl = url?.qr;
+    const fileName = url?.title;
 
-    const downloadImage = () => {
-        const imageUrl = url?.qr;
-        const fileName = url?.title;
+    const anchor = document.createElement("a");
+    anchor.href = imageUrl;
+    anchor.download = fileName;
 
-        const anchor = document.createElement("a");
-        anchor.href = imageUrl;
-        anchor.download = fileName;
+    document.body.appendChild(anchor);
 
-        document.body.appendChild(anchor);
+    anchor.click();
 
-        anchor.click();
+    document.body.removeChild(anchor);
+  };
 
-        document.body.removeChild(anchor);
-    }
+  const {
+    loading: loadingDelete,
+    error,
+    fn: fnDelete,
+  } = useFetch(deleteUrl, url?.id);
 
-    const {loading : loadingDelete, error, fn : fnDelete} = useFetch(deleteUrl, url?.id);
-
-    const date = new Date(url?.created_at);
+  const date = new Date(url?.created_at);
 
   return (
     <div className="flex flex-col md:flex-row gap-5 border p-4 bg-gray-900 rounded-lg">
@@ -36,34 +39,37 @@ const LinkCard = ({ url, fetchUrls }) => {
       />
       <Link to={`/link/${url?.id}`} className="flex flex-col flex-1">
         <span className="text-3xl font-extrabold hover:underline cursor-pointer">
-            {url?.title}
+          {url?.title}
         </span>
         <span className="text-2xl text-blue-500 font-bold hover:underline cursor-pointer">
-            https://us.in/{url?.custom_url ? url?.custom_url : url?.short_url}
+          https://url-shortener-92tl.onrender.com/
+          {url?.custom_url ? url?.custom_url : url?.short_url}
         </span>
         <span className="flex items-center gap-1 hover:underline cursor-pointer">
-            {url?.original_url}
+          {url?.original_url}
         </span>
         <span className="flex items-end font-extralight text-sm flex-1">
-            {moment(date).format("Do MMMM YYYY, h:mm a")}
+          {moment(date).format("Do MMMM YYYY, h:mm a")}
         </span>
       </Link>
 
       <div className="flex gap-2">
-        <Button variant="ghost"
-            onClick={() => 
-                navigator.clipboard.writeText(`https://us.in/${url?.short_url}`)    
-            }
+        <Button
+          variant="ghost"
+          onClick={() =>
+            navigator.clipboard.writeText(`https://url-shortener-92tl.onrender.com//${url?.short_url}`)
+          }
         >
-            <Copy />
+          <Copy />
         </Button>
-        <Button variant="ghost"
-        onClick={downloadImage}>
-            <Download />
+        <Button variant="ghost" onClick={downloadImage}>
+          <Download />
         </Button>
-        <Button variant="ghost"
-        onClick={() => fnDelete().then(() => fetchUrls())}>
-            {loadingDelete ? <BeatLoader size={5} color="white"/> : <Trash />}
+        <Button
+          variant="ghost"
+          onClick={() => fnDelete().then(() => fetchUrls())}
+        >
+          {loadingDelete ? <BeatLoader size={5} color="white" /> : <Trash />}
         </Button>
       </div>
     </div>

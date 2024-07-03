@@ -79,11 +79,11 @@ const Link = () => {
             {url?.title}
           </span>
           <a
-            href={`https://us.in/${link}`}
+            href={`https://url-shortener-92tl.onrender.com/${link}`}
             target="_blank"
             className="text-3xl sm:text-4xl text-blue-400 font-bold hover:underline cursor-pointer"
           >
-            https://us.in/{link}
+            https://url-shortener-92tl.onrender.com/{link}
           </a>
           <a
             href={url?.original_url}
@@ -100,7 +100,7 @@ const Link = () => {
             <Button
               variant="ghost"
               onClick={() =>
-                navigator.clipboard.writeText(`https://us.in/${url?.short_url}`)
+                navigator.clipboard.writeText(`https://url-shortener-92tl.onrender.com/${url?.short_url}`)
               }
             >
               <Copy />
