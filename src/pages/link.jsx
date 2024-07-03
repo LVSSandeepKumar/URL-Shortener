@@ -1,3 +1,5 @@
+import DeviceInfo from "@/components/device-info";
+import LocationInfo from "@/components/location-info";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -137,7 +139,9 @@ const Link = () => {
               </Card>
 
               <CardTitle>Location Data</CardTitle>
-              <CardTitle>DeviceInfo</CardTitle>
+              <LocationInfo stats={stats} />
+              <CardTitle>Device Info</CardTitle>
+              <DeviceInfo stats={stats} />
             </CardContent>
           ) : (
             <CardContent>
