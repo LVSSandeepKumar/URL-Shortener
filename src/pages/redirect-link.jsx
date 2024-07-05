@@ -36,6 +36,7 @@ const RedirectLink = () => {
     )
   }
 
+  window.location.href = data?.original_url;
   return null;
 }
 
