@@ -31,6 +31,7 @@ export async function getLongUrl(id) {
 
   if (error) throw new Error("Unable to load Long URl");
 
+  window.location.href = data.original_url;
   return data;
 }
 
