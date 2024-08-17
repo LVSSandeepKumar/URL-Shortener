@@ -42,7 +42,7 @@ const LinkCard = ({ url, fetchUrls }) => {
           {url?.title}
         </span>
         <span className="text-2xl text-blue-500 font-bold hover:underline cursor-pointer">
-        https://rad-longma-b8bf2a.netlify.app/
+        {process.env.WEBSITE_URL}/
           {url?.custom_url ? url?.custom_url : url?.short_url}
         </span>
         <span className="flex items-center gap-1 hover:underline cursor-pointer">
@@ -57,7 +57,7 @@ const LinkCard = ({ url, fetchUrls }) => {
         <Button
           variant="ghost"
           onClick={() =>
-            navigator.clipboard.writeText(`https://rad-longma-b8bf2a.netlify.app/${url?.short_url}`)
+            navigator.clipboard.writeText(`${process.env.WEBSITE_URL}/${url?.short_url}`)
           }
         >
           <Copy />

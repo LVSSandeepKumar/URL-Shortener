@@ -78,11 +78,11 @@ const Link = () => {
             {url?.title}
           </span>
           <a
-            href={`https://rad-longma-b8bf2a.netlify.app/${link}`}
+            href={`${process.env.WEBSITE_URL}/${link}`}
             target="_blank"
             className="text-3xl sm:text-4xl text-blue-400 font-bold hover:underline cursor-pointer"
           >
-            https://rad-longma-b8bf2a.netlify.app/{link}
+            {process.env.WEBSITE_URL}/{link}
           </a>
           <a
             href={url?.original_url}
@@ -99,7 +99,7 @@ const Link = () => {
             <Button
               variant="ghost"
               onClick={() =>
-                navigator.clipboard.writeText(`https://rad-longma-b8bf2a.netlify.app/${url?.short_url}`)
+                navigator.clipboard.writeText(`${process.env.WEBSITE_URL}/${url?.short_url}`)
               }
             >
               <Copy />
